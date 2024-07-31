@@ -31,7 +31,9 @@
             transform: `translateY(${virtualRows[0]?.start ?? 0}px)`,
           }"
         >
-          <div
+
+        <draggable class="list-group" :list="virtualRows" group="people" item-key="id">
+          <!-- <div
             v-for="virtualRow in virtualRows"
             :key="virtualRow.key"
             :data-index="virtualRow.index"
@@ -42,7 +44,23 @@
               <div>Row {{ virtualRow.index }}</div>
               <div>{{ sentences[virtualRow.index] }}</div>
             </div>
-          </div>
+          </div> -->
+
+          <template #item="{element}">
+            <div
+              item-key="id"
+              :data-index="element.index"
+              :ref="measureElement"
+              :class="element.index % 2 ? 'ListItemOdd' : 'ListItemEven'"
+            >
+              <div style="padding: 10px 0">
+                <div>Row {{ element.index }}</div>
+                <div>{{ sentences[element.index] }}</div>
+              </div>
+            </div>
+          </template>
+
+        </draggable>
         </div>
       </div>
     </div>
@@ -53,6 +71,7 @@
 import { ref, computed } from 'vue'
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { generateSentences } from './utils'
+import draggable from 'vuedraggable'
 
 const sentences = generateSentences()
 

@@ -10,7 +10,7 @@ export const generateRandomNumber = (min: number, max: number) =>
   faker.datatype.number({ min, max })
 
 export const generateSentences = () =>
-  new Array(10000)
+  new Array(500)
     .fill(true)
     .map(() => faker.lorem.sentence(generateRandomNumber(20, 70)))
 
